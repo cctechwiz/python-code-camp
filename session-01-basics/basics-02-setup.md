@@ -4,10 +4,6 @@
 First, we obviously need to install Python on our system.
  - Download Python [here](https://www.python.org/downloads/)
 
-#### cmdr
-Cmdr is a shell that works much better than the default cmd or powershell
- - Download cmdr [here](https://cmder.net/)
-
 #### ipython
 Ipython is a python interpreter that has some very nice built-in documentation, auto-complete, formatting, and colors.
  - Download ipython with the following command: ```pip install ipython```
@@ -34,6 +30,8 @@ It also enables multiple people to work on the same code project and easily merg
   - Whenever you change a file you can ```git add``` it to the commit
   - After adding all the changes you want to include in the commit, type a commit message ```git commit -m "message"```
   - Once you've commit you can ```git push``` the changes to your GitHub repository
+  
+  We used ```git bash``` to run ```ipython``` and ```python file.py```.
 
 
 ### Done!
