@@ -12,3 +12,4 @@ Let's first breakdown the components of the games and decide what we need to bui
 #### Homework:
 - ask if the players wants to play again
 - hide the players input from the screen
+- add a grendade that always win
