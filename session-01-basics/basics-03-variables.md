@@ -40,7 +40,7 @@ What if you wanted to get some of the items from the list, not just one?
  - ```x[0:3]``` will be [1, 2, 3] (we asked for items starting at 0 and stopping before 3)
  - ```x[2:]``` will be [3, 4] (we asked for items starting at 2 and stopping at the end)
  - ```x[0:3:2]``` will be [1, 3] (we asked for items starting at 0 and stopping before 3, couting our index by 2)
- - These are called ```list slices```
+ - These are called ```list slices```, you can get some more info in this [stack overflow post](https://stackoverflow.com/questions/509211/understanding-slice-notation)
 
 You can also get fancy and nest lists inside of lists
 ```python
