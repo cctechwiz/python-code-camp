@@ -12,6 +12,10 @@
 #### Script vs Interpreter
 - Python can run in two ways, either in the interpreter (which we'll see in a minute), and from a script.
 
+#### White space
+- Python is a white space formated programming language.
+- The indentation of each line is important.
+
 #### Help & Docs
 - [Official Python3 Tutorial](https://docs.python.org/3.7/tutorial/index.html)
 - [Official Python3 Documentation](https://docs.python.org/3.7/library/index.html)
