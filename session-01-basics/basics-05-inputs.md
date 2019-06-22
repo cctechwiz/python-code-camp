@@ -8,5 +8,6 @@
  - open()
  - read()
  - readline()
+ - readlines()
  - with/as
  - for/in
