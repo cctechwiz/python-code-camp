@@ -52,20 +52,20 @@ commands = ['quit', 'q',
 
 help_message = """
 --- help ---
-to look around:
-    type 'look'
-to move:
-    type a direction
+to look around type:
+    'look'
+to move type:
+    'north', 'south', 'east', or 'west'
 to see items you're holding:
-    type 'items'
-to pick up an item:
-    type 'get <item>'
-to drop an item:
-    type 'drop <item>'
-to talk to an npc:
-    type 'talk <npc>'
-to quit:
-    type 'q' or 'quit' """
+    'items'
+to pick up an item type:
+    'get <item>'
+to drop an item type:
+    'drop <item>'
+to talk to an npc type:
+    'talk <npc>'
+to quit type:
+    'q' or 'quit' """
 
 carrying = []
 
@@ -136,4 +136,4 @@ while True:
     # bad command
     else:
         print("I don't understand that command.")
-        print('--- (You can ask for \'help\') ---')
+        print("   (You can ask for 'help')")
