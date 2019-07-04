@@ -29,6 +29,7 @@ temple.add_item('bench')
 temple.add_item('bench')
 temple.add_item('statue')
 temple.add_npc(priest)
+# TODO: Add crafting
 
 torture.add_adjacent_room('west', temple)
 torture.add_adjacent_room('south', bedroom)
@@ -114,6 +115,7 @@ while True:
                 print("I don't see that here.")
         # drop an object
         elif cmd in ('drop', 'd'):
+            # TODO: allow for items with spaces
             if len(command.split()) == 1:
                 print("What do you drop?")
                 continue
