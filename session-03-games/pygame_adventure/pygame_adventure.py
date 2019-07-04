@@ -112,6 +112,8 @@ while game_running:
                 y_change = 0
             if event.key == pygame.K_SPACE:
                 pick_up_or_drop()
+            if event.key == pygame.K_q:
+                game_running = False
 
     x += x_change
     y += y_change
@@ -149,3 +151,7 @@ while game_running:
     draw_player()
 
     pygame.display.update()
+
+
+pygame.quit()
+quit()
