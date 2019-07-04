@@ -1,7 +1,12 @@
-from npc import npc
-from room import room
+"""
+Pygame version of adventure game
+"""
 
 import pygame
+
+from room import room
+from room import item
+
 pygame.init()
 
 screen_height = 800
@@ -17,8 +22,8 @@ player = pygame.transform.scale(player, (200, 200))
 player_height = 180
 player_width = 140
 
-x = (screen_width * 0.5)
-y = (screen_height * 0.5)
+x = (screen_width * 0.40)
+y = (screen_height * 0.40)
 x_change = 0
 y_change = 0
 
@@ -41,79 +46,50 @@ bedroom = room('a bedroom',
             'There is a large bed with black, silk sheets on it.',
             './images/bedroom.png')
 
-# Create npcs
-priest = npc('priest', 'a priestly figure in long white robes.')
-priest.add_line('Hello child.')
-priest.add_line('Welcome to the temple.')
-priest.add_line('Please take all the time you need.')
-
-maid = npc('maid', 'a short, plump lady with a feather duster in her hand.')
-maid.add_line('Oh!')
-maid.add_line('Please excuse the mess.')
-maid.add_line("Sorry. I'm almost done.")
-
 # Setup rooms
 empty.add_adjacent_room('east', bedroom)
 empty.add_adjacent_room('north', temple)
 
 temple.add_adjacent_room('east', torture)
 temple.add_adjacent_room('south', empty)
-temple.add_item('bench')
-temple.add_item('bench')
-temple.add_item('bench')
-temple.add_item('statue')
-temple.add_npc(priest)
-# TODO: Add crafting
 
 torture.add_adjacent_room('west', temple)
 torture.add_adjacent_room('south', bedroom)
-torture.add_item('chains')
-torture.add_item('thumbscrews')
 
 bedroom.add_adjacent_room('north', torture)
 bedroom.add_adjacent_room('west', empty)
-bedroom.add_item('sheets')
-bedroom.add_item('bed')
-bedroom.add_npc(maid)
 
-directions = ['north', 'south', 'east', 'west']
-commands = ['quit', 'q',
-            'help', 'h',
-            'items', 'i',
-            'look', 'l',
-            'get', 'g',
-            'drop', 'd',
-            'talk', 't']
+# Setup items
+berries = item('berries', './images/berries.png')
+empty.add_item(berries, 30, 30)
 
-help_message = """
---- help ---
-to look around type:
-    'look'
-to move type:
-    'north', 'south', 'east', or 'west'
-to see items you're holding:
-    'items'
-to pick up an item type:
-    'get <item>'
-to drop an item type:
-    'drop <item>'
-to talk to an npc type:
-    'talk <npc>'
-to quit type:
-    'q' or 'quit' """
-
-carrying = []
-
+# Game state
+holding = []
 current_room = empty
-#current_room.print_room_info()
 
 def draw_current_room():
     screen.blit(current_room.background, (0, 0))
+    for item in current_room.items:
+        screen.blit(item.icon, (item.x, item.y))
 
 def draw_player():
     screen.blit(player, (x, y))
+    for item in holding:
+        screen.blit(item.icon, (x + 60, y + 120))
 
-# game loop
+def pick_up_or_drop():
+    if len(holding) == 0:
+        for item in current_room.items:
+            if (item.x >= x) and (item.x <= (x + player_width)):
+                if (item.y >= y) and (item.y <= (y + player_height)):
+                    current_room.remove_item(berries)
+                    holding.append(berries)
+    elif len(holding) == 1:
+        item = holding[0]
+        holding.remove(item)
+        current_room.add_item(item, x + 60, y + 120)
+
+# Game loop
 while game_running:
     clock.tick(60)
 
@@ -134,6 +110,8 @@ while game_running:
                 x_change = 0
             if event.key in (pygame.K_UP, pygame.K_DOWN):
                 y_change = 0
+            if event.key == pygame.K_SPACE:
+                pick_up_or_drop()
 
     x += x_change
     y += y_change
@@ -167,74 +145,7 @@ while game_running:
         else:
             y = top_edge
 
-    
-    
     draw_current_room()
     draw_player()
 
     pygame.display.update()
-
-    # # get user input
-    # command = input('\nWhat do you do?\n> ').strip().lower()
-    # # movement commands
-    # if command in directions:
-    #     if command in current_room.directions:
-    #         current_room = current_room.directions[command]
-    #         current_room.print_room_info()
-    #     else:
-    #         print("You can't go that way.")
-    # # other supported commands
-    # elif command.split()[0] in commands:
-    #     cmd = command.split()[0]
-    #     # quit the game
-    #     if cmd in ('q', 'quit'):
-    #         break
-    #     # ask for help
-    #     elif cmd in ('h', 'help'):
-    #         print(help_message)
-    #     # show items you're carrying
-    #     elif cmd in ('i', 'items'):
-    #         if carrying:
-    #             print('You are carrying: {}'.format(', '.join(carrying)))
-    #         else:
-    #             print('You are not carrying anything')
-    #     # look around the room
-    #     elif cmd in ('look', 'l'):
-    #         current_room.print_room_info()
-    #     # pick up an object
-    #     elif cmd in ('get', 'g'):
-    #         if len(command.split()) == 1:
-    #             print("What do you pick up?")
-    #             continue
-    #         item = command.split()[1]
-    #         if item in current_room.items:
-    #             current_room.remove_item(item)
-    #             carrying.append(item)
-    #         else:
-    #             print("I don't see that here.")
-    #     # drop an object
-    #     elif cmd in ('drop', 'd'):
-    #         # TODO: allow for items with spaces
-    #         if len(command.split()) == 1:
-    #             print("What do you drop?")
-    #             continue
-    #         item = command.split()[1]
-    #         if item in carrying:
-    #             carrying.remove(item)
-    #             current_room.add_item(item)
-    #         else:
-    #             print("You aren't carrying that.")
-    #     # talk to an npc
-    #     elif cmd in ('talk', 't'):
-    #         if len(command.split()) == 1:
-    #             print("Who do you talk to?")
-    #             continue
-    #         npc = command.split()[1]
-    #         if npc in current_room.npcs:
-    #             current_room.npcs[npc].talk()
-    #         else:
-    #             print("You don't see anyone called that.")
-    # # bad command
-    # else:
-    #     print("I don't understand that command.")
-    #     print("   (You can ask for 'help')")
