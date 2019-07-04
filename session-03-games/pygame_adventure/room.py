@@ -17,13 +17,13 @@ class room:
         self.items = []
         self.directions = {}
     
-    def add_adjacent_room(self, direction, room):
-        self.directions.update({direction: room})
+    def add_adjacent_room(self, direction, r):
+        self.directions.update({direction: r})
 
-    def add_item(self, item, x, y):
+    def add_item(self, i, x, y):
         item.x = x
         item.y = y
-        self.items.append(item)
+        self.items.append(i)
 
-    def remove_item(self, item):
-        self.items.remove(item)
+    def remove_item(self, i):
+        self.items.remove(i)
