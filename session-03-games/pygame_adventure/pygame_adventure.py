@@ -61,7 +61,7 @@ bedroom.add_adjacent_room('west', empty)
 
 # Setup items
 berries = item('berries', './images/berries.png')
-empty.add_item(berries, 30, 30)
+empty.add_item(berries, 100, 100)
 
 # Game state
 holding = []
